@@ -12,7 +12,7 @@ This project requires Zig. At the time of writing, building was tested with Zig 
 
 *Chases and Stills* can be found on GitHub and IPFS. GitHub should always work, but I am personally publishing the repository on IPFS, so it may not always be available there.
 
-GitHub: https://github.com/SinjurJ/chases-and-stills
+GitHub: https://github.com/SinjurJ/chases-and-stills  
 IPFS: ipns://k51qzi5uqu5diqlddjvxe2obukhwahepuyqk9he184cy9eccjra6mbvp22i40q
 
 ## Copyright
