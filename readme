@@ -9,6 +9,7 @@ The controls are arrow keys and 'z'. In the spirit of Second Generation video ga
 This project requires Zig. At the time of writing, building was tested with Zig 0.13.0, but past or future versions may work. To build, execute `zig build -Doptimize=ReleaseFast`. To run, execute the generated executable binary or execute `zig build -Doptimize=ReleaseFast run`.
 
 ## Repositories
+
 *Chases and Stills* can be found on GitHub and IPFS. GitHub should always work, but I am personally publishing the repository on IPFS, so it may not always be available there.
 
 GitHub: https://github.com/SinjurJ/chases-and-stills
