@@ -2,7 +2,7 @@
 
 A small game inspired by GCE's *Mine Storm*. I'm not going to say it's amazing, but it's my first complete, independent programming project, and I'm rather happy with it.
 
-The controls are arrow keys and 'z'. In the spirit of Second Generation video games, I made frequent use of tiny integers with no overflow prevention, so there may be crashes and unintended behavior. In my testing, there are 256 levels excluding the first that loop endlessly. The Player originally had only three lives, but I found it more fun to keep trying continuously, so I increased the number to 100. The game closes when lives are exhausted.
+The controls are arrow keys and 'z'. One can press 'f' to fullscreen. In the spirit of Second Generation video games, I made frequent use of tiny integers with no overflow prevention, so there may be crashes and unintended behavior. In my testing, there are 256 levels excluding the first that loop endlessly. The Player originally had only three lives, but I found it more fun to keep trying continuously, so I increased the number to 100. The game closes when lives are exhausted.
 
 ## Building
 

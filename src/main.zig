@@ -269,6 +269,9 @@ pub fn main() !void {
 
             player.time_since_fire += rl.getFrameTime();
 
+            if (rl.isKeyPressed(rl.KeyboardKey.key_f)) {
+                rl.toggleFullscreen();
+            }
             if (rl.windowShouldClose() and !rl.isKeyPressed(rl.KeyboardKey.key_escape)) {
                 break :level;
             }
