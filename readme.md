@@ -8,6 +8,8 @@ The controls are arrow keys and 'z'. One can press 'f' to fullscreen. In the spi
 
 This project requires Zig. At the time of writing, building was tested with Zig 0.13.0, but past or future versions may work. To build, execute `zig build -Doptimize=ReleaseFast`. To run, execute the generated executable binary or execute `zig build -Doptimize=ReleaseFast run`.
 
+One may need to update the hash for raylib-zig. To do this, execute `zig fetch --save https://github.com/Not-Nik/raylib-zig/archive/devel.tar.gz`.
+
 ## Repositories
 
 *Chases and Stills* can be found on GitHub and IPFS. GitHub should always work, but I am personally publishing the repository on IPFS, so it may not always be available there.
