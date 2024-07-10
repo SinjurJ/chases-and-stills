@@ -1,9 +1,12 @@
 const std = @import("std");
 
+const LinuxDisplayBackend = enum { X11, Wayland };
+
 pub fn build(b: *std.Build) void {
     const target = b.standardTargetOptions(.{});
-
     const optimize = b.standardOptimizeOption(.{});
+
+    const x11 = b.option(bool, "x11", "On Linux, use X11 instead of Wayland") orelse false;
 
     const exe = b.addExecutable(.{
         .name = "chases-and-stills",
@@ -17,6 +20,12 @@ pub fn build(b: *std.Build) void {
     const raylib_dep = b.dependency("raylib-zig", .{
         .target = target,
         .optimize = optimize,
+        .linux_display_backend = blk: {
+            if (b.graph.host.result.os.tag == .linux and std.mem.eql(u8, std.posix.getenvZ("XDG_SESSION_TYPE") orelse "", "wayland")) {
+                break :blk if (x11) LinuxDisplayBackend.X11 else LinuxDisplayBackend.Wayland;
+            }
+            break :blk LinuxDisplayBackend.X11;
+        },
     });
 
     const raylib = raylib_dep.module("raylib");
