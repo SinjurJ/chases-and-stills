@@ -19,6 +19,7 @@ pub fn main() !void {
     defer rl.closeWindow();
     rl.setWindowSize(400, 400);
     rl.setWindowMinSize(300, 300);
+    rl.setWindowTitle("Chases and Stills");
 
     var level: u8 = 0;
     var lives: u8 = 100;
