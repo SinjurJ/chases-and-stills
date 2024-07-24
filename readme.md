@@ -14,8 +14,8 @@ One may need to update the hash for raylib-zig. To do this, execute `zig fetch -
 
 *Chases and Stills* can be found on GitHub and IPFS. GitHub should always work, but I am personally publishing the repository on IPFS, so it may not always be available there.
 
-GitHub: https://github.com/SinjurJ/chases-and-stills  
-IPFS: ipns://k51qzi5uqu5diqlddjvxe2obukhwahepuyqk9he184cy9eccjra6mbvp22i40q
+GitHub: [https://github.com/SinjurJ/chases-and-stills](https://github.com/SinjurJ/chases-and-stills)
+IPFS: [ipns://k51qzi5uqu5diqlddjvxe2obukhwahepuyqk9he184cy9eccjra6mbvp22i40q](ipns://k51qzi5uqu5diqlddjvxe2obukhwahepuyqk9he184cy9eccjra6mbvp22i40q)
 
 ## Copyright
 
