@@ -19,4 +19,4 @@ IPFS: [ipns://k51qzi5uqu5diqlddjvxe2obukhwahepuyqk9he184cy9eccjra6mbvp22i40q](ip
 
 ## Copyright
 
-*Chases and Stills* was designed and written by Jareth McGhee. This project, associated code, and associated files are licensed [MIT](https://opensource.org/license/mit) (Expat). There are no graphical or auditory assets, but one can consider the output of the program, including the designs of the Mines and of the Player, to be dedicated to the public domain with [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) and/or any later version. Copies of relevant third party licenses are included.
+*Chases and Stills* was designed and written by Jareth McGhee. This project, associated code, and associated files are licensed [MIT](https://opensource.org/license/mit). There are no graphical or auditory assets, but one can consider the output of the program, including the designs of the Mines and of the Player, to be dedicated to the public domain with [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) and/or any later version. Copies of relevant third party licenses are included.
