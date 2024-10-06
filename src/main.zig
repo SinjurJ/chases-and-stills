@@ -10,6 +10,7 @@ const StillSmall = @import("./StillSmall.zig");
 
 pub fn main() !void {
     var gpa = std.heap.GeneralPurposeAllocator(.{}){};
+    defer _ = gpa.deinit();
 
     rl.setConfigFlags(rl.ConfigFlags{
         .msaa_4x_hint = true,
