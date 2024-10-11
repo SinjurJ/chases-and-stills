@@ -2,9 +2,9 @@ const std = @import("std");
 const rl = @import("raylib");
 const util = @import("./utilities.zig");
 
-pub const radius = 10.0;
-pub const collide_radius = radius * 0.8;
-const thickness = 2.0;
+pub var radius: f32 = 10.0;
+pub var collide_radius: f32 = 8.0;
+var thickness: f32 = 2.0;
 
 x: f32,
 y: f32,
@@ -13,6 +13,13 @@ speed: f32,
 player_made: bool,
 frame: u8 = 0,
 time_since_frame: f32 = 0,
+
+pub fn calculateRadius() void {
+    const render_min = util.getRenderMin();
+    radius = render_min * 0.025;
+    collide_radius = radius * 0.8;
+    thickness = render_min * 0.005;
+}
 
 pub fn move(self: *@This()) void {
     const speed = self.speed / (1.0 / 60.0 / rl.getFrameTime());

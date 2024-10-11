@@ -22,40 +22,42 @@ pub fn fieldGenerate(allocator: std.mem.Allocator, id: u8) Mines {
 
     const random = engine.random();
 
+    const size_ratio: f32 = util.getRenderMin() / 400.0;
+
     switch (id) {
         0 => {
             still_smalls.append(.{
                 StillSmall{
-                    .x = 50.0,
-                    .y = util.getRenderHeight() - 50.0,
+                    .x = size_ratio * 50.0,
+                    .y = util.getRenderHeight() - size_ratio * 50.0,
                     .angle = 0.0,
-                    .speed = 0.5,
+                    .speed = 0.0,
                 },
                 StillSmall{
-                    .x = 50.0,
-                    .y = util.getRenderHeight() - 50.0,
+                    .x = size_ratio * 50.0,
+                    .y = util.getRenderHeight() - size_ratio * 50.0,
                     .angle = 0.0,
-                    .speed = 0.5,
+                    .speed = 0.0,
                 },
                 StillSmall{
-                    .x = 50.0,
-                    .y = util.getRenderHeight() - 50.0,
+                    .x = size_ratio * 50.0,
+                    .y = util.getRenderHeight() - size_ratio * 50.0,
                     .angle = 0.0,
-                    .speed = 0.5,
+                    .speed = 0.0,
                 },
             }) catch {};
             stills.append(Still{
-                .x = 50.0,
-                .y = util.getRenderHeight() - 50.0,
+                .x = size_ratio * 50.0,
+                .y = util.getRenderHeight() - size_ratio * 50.0,
                 .angle = 0.0,
                 .spin_speed = 0.5,
                 .fire_rate = 5.0,
             }) catch {};
             chases.append(Chase{
-                .x = util.getRenderWidth() - 50.0,
-                .y = util.getRenderHeight() - 50.0,
+                .x = util.getRenderWidth() - size_ratio * 50.0,
+                .y = util.getRenderHeight() - size_ratio * 50.0,
                 .angle = 0.0,
-                .speed = 1.0,
+                .speed = size_ratio * 1.0,
             }) catch {};
         },
         else => {
@@ -83,7 +85,7 @@ pub fn fieldGenerate(allocator: std.mem.Allocator, id: u8) Mines {
                     .x = x,
                     .y = y,
                     .angle = 0.0,
-                    .speed = 1.0,
+                    .speed = size_ratio * 1.0,
                 }) catch {};
             }
 
@@ -115,19 +117,19 @@ pub fn fieldGenerate(allocator: std.mem.Allocator, id: u8) Mines {
                         .x = x,
                         .y = y,
                         .angle = angle,
-                        .speed = 0.5,
+                        .speed = 0.0,
                     },
                     StillSmall{
                         .x = x,
                         .y = y,
                         .angle = angle,
-                        .speed = 0.5,
+                        .speed = 0.0,
                     },
                     StillSmall{
                         .x = x,
                         .y = y,
                         .angle = angle,
-                        .speed = 0.5,
+                        .speed = 0.0,
                     },
                 }) catch {};
                 stills.append(Still{

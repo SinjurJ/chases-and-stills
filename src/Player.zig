@@ -2,8 +2,9 @@ const std = @import("std");
 const rl = @import("raylib");
 const util = @import("./utilities.zig");
 
-pub const radius = 20.0;
-pub const collide_radius = radius * 0.2;
+pub var radius: f32 = 20.0;
+pub var collide_radius: f32 = 4.0;
+var thickness: f32 = 2.0;
 
 x: f32,
 y: f32,
@@ -12,6 +13,13 @@ speed: f32,
 rotate_speed: f32,
 fire_delay: f32,
 time_since_fire: f32,
+
+pub fn calculateRadius() void {
+    const render_min = util.getRenderMin();
+    radius = render_min * 0.05;
+    collide_radius = radius * 0.2;
+    thickness = render_min * 0.005;
+}
 
 pub fn move(self: *@This()) void {
     const speed = util.adjustForDeltaTime(self.speed);
@@ -36,8 +44,6 @@ pub fn rotateRight(self: *@This()) void {
 }
 
 pub fn draw(self: *@This()) void {
-    const thickness = comptime (2.0);
-
     const radians = util.gradiansToRadians(self.angle);
 
     const right_point_x = self.x + radius * @cos(radians);

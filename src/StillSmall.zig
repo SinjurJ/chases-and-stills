@@ -2,9 +2,10 @@ const std = @import("std");
 const rl = @import("raylib");
 const util = @import("./utilities.zig");
 
-pub const radius = 10.0;
-pub const collide_radius = radius * 0.9;
-pub const player_collide_radius = radius * 0.5;
+pub var radius: f32 = 10.0;
+pub var collide_radius: f32 = 9.0;
+pub var player_collide_radius: f32 = 5.0;
+var thickness: f32 = 2.0;
 
 x: f32,
 y: f32,
@@ -12,6 +13,14 @@ angle: f32,
 speed: f32,
 split: bool = false,
 split_time: f32 = 0.0,
+
+pub fn calculateRadius() void {
+    const render_min = util.getRenderMin();
+    radius = render_min * 0.025;
+    collide_radius = radius * 0.9;
+    player_collide_radius = radius * 0.5;
+    thickness = render_min * 0.005;
+}
 
 pub fn move(self: *@This()) void {
     if (!self.split) return;
@@ -37,8 +46,7 @@ pub fn draw(self: @This()) void {
     const left_point = rl.Vector2.init(left_x, left_y);
     const bottom_right_point = rl.Vector2.init(bottom_right_x, bottom_right_y);
 
-    rl.drawTriangleLines(top_right_point, left_point, bottom_right_point, rl.Color.white);
-
-    //rl.drawCircleLinesV(rl.Vector2.init(self.x, self.y), collide_radius, rl.Color.red);
-    //rl.drawCircleLinesV(rl.Vector2.init(self.x, self.y), player_collide_radius, rl.Color.green);
+    rl.drawLineEx(top_right_point, left_point, thickness, rl.Color.white);
+    rl.drawLineEx(left_point, bottom_right_point, thickness, rl.Color.white);
+    rl.drawLineEx(bottom_right_point, top_right_point, thickness, rl.Color.white);
 }

@@ -3,8 +3,9 @@ const rl = @import("raylib");
 const util = @import("./utilities.zig");
 const StillSmall = @import("./StillSmall.zig");
 
-pub const radius: f32 = 20.0;
-pub const collide_radius: f32 = radius * 0.9;
+pub var radius: f32 = 20.0;
+pub var collide_radius: f32 = 18.0;
+var thickness: f32 = 2.0;
 
 x: f32,
 y: f32,
@@ -13,10 +14,17 @@ spin_speed: f32,
 fire_rate: f32,
 time_since_fire: f32 = 0.0,
 
+pub fn calculateRadius() void {
+    const render_min = util.getRenderMin();
+    radius = render_min * 0.05;
+    collide_radius = radius * 0.9;
+    thickness = render_min * 0.005;
+}
+
 pub fn release(self: *@This(), still_smalls: *[3]?StillSmall) void {
     for (still_smalls) |*still_small_optional| {
         if (still_small_optional.*) |*still_small| {
-            still_small.speed = self.spin_speed;
+            still_small.speed = util.gradiansToRadians(self.spin_speed) * radius;
             still_small.split = true;
         }
     }
@@ -65,7 +73,7 @@ pub fn draw(self: *@This(), still_smalls: *[3]?StillSmall) void {
     self.angle = @mod(self.angle - self.spin_speed / (1.0 / 60.0 / rl.getFrameTime()), 400.0);
 
     const radians = util.gradiansToRadians(self.angle);
-    const small_radius = 10.0;
+    const small_radius = radius * 0.5;
 
     const top_right_center_x = self.x - radius * @cos(radians + std.math.tau / 3.0);
     const top_right_center_y = self.y - radius * @sin(radians + std.math.tau / 3.0);
@@ -105,22 +113,20 @@ pub fn draw(self: *@This(), still_smalls: *[3]?StillSmall) void {
     const bottom_right_top_point = rl.Vector2.init(bottom_right_top_x, bottom_right_top_y);
     const bottom_right_inner_point = rl.Vector2.init(bottom_right_inner_x, bottom_right_inner_y);
 
-    rl.drawLineV(top_right_top_point, left_top_point, rl.Color.white);
-    rl.drawLineV(left_bottom_point, bottom_right_bottom_point, rl.Color.white);
-    rl.drawLineV(bottom_right_top_point, top_right_bottom_point, rl.Color.white);
+    rl.drawLineEx(top_right_top_point, left_top_point, thickness, rl.Color.white);
+    rl.drawLineEx(left_bottom_point, bottom_right_bottom_point, thickness, rl.Color.white);
+    rl.drawLineEx(bottom_right_top_point, top_right_bottom_point, thickness, rl.Color.white);
 
-    rl.drawLineV(top_right_bottom_point, top_right_inner_point, rl.Color.white);
-    rl.drawLineV(top_right_inner_point, top_right_top_point, rl.Color.white);
-    rl.drawLineV(left_top_point, left_inner_point, rl.Color.white);
-    rl.drawLineV(left_inner_point, left_bottom_point, rl.Color.white);
-    rl.drawLineV(bottom_right_bottom_point, bottom_right_inner_point, rl.Color.white);
-    rl.drawLineV(bottom_right_inner_point, bottom_right_top_point, rl.Color.white);
+    rl.drawLineEx(top_right_bottom_point, top_right_inner_point, thickness, rl.Color.white);
+    rl.drawLineEx(top_right_inner_point, top_right_top_point, thickness, rl.Color.white);
+    rl.drawLineEx(left_top_point, left_inner_point, thickness, rl.Color.white);
+    rl.drawLineEx(left_inner_point, left_bottom_point, thickness, rl.Color.white);
+    rl.drawLineEx(bottom_right_bottom_point, bottom_right_inner_point, thickness, rl.Color.white);
+    rl.drawLineEx(bottom_right_inner_point, bottom_right_top_point, thickness, rl.Color.white);
 
-    rl.drawLineV(top_right_inner_point, left_inner_point, rl.Color.white);
-    rl.drawLineV(left_inner_point, bottom_right_inner_point, rl.Color.white);
-    rl.drawLineV(bottom_right_inner_point, top_right_inner_point, rl.Color.white);
-
-    //rl.drawCircleLinesV(rl.Vector2.init(self.x, self.y), collide_radius, rl.Color.red);
+    rl.drawLineEx(top_right_inner_point, left_inner_point, thickness, rl.Color.white);
+    rl.drawLineEx(left_inner_point, bottom_right_inner_point, thickness, rl.Color.white);
+    rl.drawLineEx(bottom_right_inner_point, top_right_inner_point, thickness, rl.Color.white);
 
     for (still_smalls, 0..) |*still_small_optional, i| {
         if (still_small_optional.*) |*still_small| {

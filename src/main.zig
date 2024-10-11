@@ -34,6 +34,8 @@ pub fn main() !void {
         .time_since_fire = 100.0,
     };
 
+    var lastRenderMin: f32 = 400.0;
+
     level: while (true) {
         var arena = std.heap.ArenaAllocator.init(gpa.allocator());
         defer arena.deinit();
@@ -46,6 +48,42 @@ pub fn main() !void {
         var mines = field.fieldGenerate(allocator, level);
 
         if (!field: while (true) {
+            const currentRenderMin = util.getRenderMin();
+            if (lastRenderMin != currentRenderMin) {
+                Bullet.calculateRadius();
+                Chase.calculateRadius();
+                Player.calculateRadius();
+                Still.calculateRadius();
+                StillSmall.calculateRadius();
+
+                const change_ratio: f32 = currentRenderMin / lastRenderMin;
+
+                {
+                    player.speed *= change_ratio;
+                }
+                for (bullets.items) |*bullet| {
+                    bullet.speed *= change_ratio;
+                }
+                for (mines.chases.items) |*chase| {
+                    chase.speed *= change_ratio;
+                    chase.spinning_speed *= change_ratio;
+                }
+                //for (mines.stills.items) |*still_or_null| {
+                //if (still_or_null.*) |*still| {
+                //still.spin_speed *= change_ratio;
+                //}
+                //}
+                for (mines.still_smalls.items) |*still_small_array| {
+                    for (still_small_array) |*still_small_optional| {
+                        if (still_small_optional.*) |*still_small| {
+                            still_small.speed *= change_ratio;
+                        }
+                    }
+                }
+
+                lastRenderMin = currentRenderMin;
+            }
+
             if (rl.isKeyDown(rl.KeyboardKey.key_left)) {
                 player.rotateLeft();
             } else if (rl.isKeyDown(rl.KeyboardKey.key_right)) {
@@ -60,8 +98,10 @@ pub fn main() !void {
 
             if (rl.isKeyPressed(rl.KeyboardKey.key_z) and player.time_since_fire > player.fire_delay) {
                 bullets.append(Bullet{
-                    .x = player.x + (Player.radius + Bullet.radius) * @mod(util.cos(player.angle), util.getRenderWidth()),
-                    .y = player.y + (Player.radius + Bullet.radius) * @mod(util.sin(player.angle), util.getRenderHeight()),
+                    //.x = player.x + (Player.radius + Bullet.radius) * @mod(util.cos(player.angle), util.getRenderWidth()),
+                    //.y = player.y + (Player.radius + Bullet.radius) * @mod(util.sin(player.angle), util.getRenderHeight()),
+                    .x = player.x + (Player.radius + Bullet.radius) * util.cos(player.angle),
+                    .y = player.y + (Player.radius + Bullet.radius) * util.sin(player.angle),
                     .angle = player.angle,
                     .speed = player.speed * 1.2,
                     .player_made = true,
@@ -129,9 +169,10 @@ pub fn main() !void {
                     bullet.draw();
                 }
 
-                rl.drawText(level_string, 10, 10, 20, rl.Color.white);
-                rl.drawText(lives_string, 10, 30, 20, rl.Color.white);
-                //rl.drawFPS(10, 50);
+                const size_ratio: i32 = @intFromFloat(util.getRenderMin() / 400.0);
+                rl.drawText(level_string, size_ratio * 10, size_ratio * 10, size_ratio * 20, rl.Color.white);
+                rl.drawText(lives_string, size_ratio * 10, size_ratio * 30, size_ratio * 20, rl.Color.white);
+                //rl.drawFPS(size_ratio * 10, size_ratio * 50);
             }
 
             for (bullets.items, 0..) |bullet, i| {
@@ -171,7 +212,7 @@ pub fn main() !void {
                         if (!chase.spin) {
                             chase.spin_angle = chase.angle;
                             chase.angle = bullet.angle;
-                            chase.spin_speed = bullet.speed;
+                            chase.spinning_speed = bullet.speed;
                             chase.spin = true;
                         } else {
                             _ = mines.chases.swapRemove(i);
@@ -230,7 +271,7 @@ pub fn main() !void {
                                 .x = x,
                                 .y = y,
                                 .angle = angle,
-                                .spin_speed = speed,
+                                .spin_speed = util.radiansToGradians(speed) / Still.radius,
                                 .fire_rate = 5.0,
                             }) catch {};
                             mines.still_smalls.items[i][j] = null;
