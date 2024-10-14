@@ -23,6 +23,8 @@ pub fn fieldGenerate(allocator: std.mem.Allocator, id: u8) Mines {
     const random = engine.random();
 
     const size_ratio: f32 = util.getRenderMin() / 400.0;
+    const width_ratio: f32 = util.getRenderWidth() / 400.0;
+    const height_ratio: f32 = util.getRenderHeight() / 400.0;
 
     switch (id) {
         0 => {
@@ -65,18 +67,18 @@ pub fn fieldGenerate(allocator: std.mem.Allocator, id: u8) Mines {
 
             var i: u3 = 0;
             while (i < chase_amount) : (i += 1) {
-                const random_x: u16 = std.Random.intRangeAtMost(random, u16, 0, @intFromFloat(util.getRenderWidth() - 100.0));
-                const random_y: u16 = std.Random.intRangeAtMost(random, u16, 0, @intFromFloat(util.getRenderHeight() - 100.0));
+                const random_x: u16 = std.Random.intRangeAtMost(random, u16, 0, @intFromFloat(util.getRenderWidth() - 100.0 * width_ratio));
+                const random_y: u16 = std.Random.intRangeAtMost(random, u16, 0, @intFromFloat(util.getRenderHeight() - 100.0 * height_ratio));
                 var x: f32 = 0.0;
                 var y: f32 = 0.0;
 
-                if (random_x > @as(u16, @intFromFloat((util.getRenderWidth() - 100.0) / 2.0))) {
-                    x = @floatFromInt(random_x + 100);
+                if (random_x > @as(u16, @intFromFloat((util.getRenderWidth() - 100.0 * width_ratio) / 2.0))) {
+                    x = @as(f32, @floatFromInt(random_x)) + @as(f32, @floatFromInt(100)) * width_ratio;
                 } else {
                     x = @floatFromInt(random_x);
                 }
-                if (random_y > @as(u16, @intFromFloat((util.getRenderHeight() - 100.0) / 2.0))) {
-                    y = @floatFromInt(random_y + 100);
+                if (random_y > @as(u16, @intFromFloat((util.getRenderHeight() - 100.0 * height_ratio) / 2.0))) {
+                    y = @as(f32, @floatFromInt(random_y)) + @as(f32, @floatFromInt(100)) * height_ratio;
                 } else {
                     y = @floatFromInt(random_y);
                 }
@@ -93,20 +95,20 @@ pub fn fieldGenerate(allocator: std.mem.Allocator, id: u8) Mines {
 
             i = 0;
             while (i < still_amount) : (i += 1) {
-                const random_x: u16 = std.Random.intRangeAtMost(random, u16, 0, @intFromFloat(util.getRenderWidth() - 100.0));
-                const random_y: u16 = std.Random.intRangeAtMost(random, u16, 0, @intFromFloat(util.getRenderHeight() - 100.0));
+                const random_x: u16 = std.Random.intRangeAtMost(random, u16, 0, @intFromFloat(util.getRenderWidth() - 100.0 * width_ratio));
+                const random_y: u16 = std.Random.intRangeAtMost(random, u16, 0, @intFromFloat(util.getRenderHeight() - 100.0 * height_ratio));
                 const random_angle: u9 = std.Random.intRangeAtMost(random, u9, 0, 400);
                 var x: f32 = 0.0;
                 var y: f32 = 0.0;
                 var angle: f32 = 0.0;
 
-                if (random_x > @as(u16, @intFromFloat((util.getRenderWidth() - 100.0) / 2.0))) {
-                    x = @floatFromInt(random_x + 100);
+                if (random_x > @as(u16, @intFromFloat((util.getRenderWidth() - 100.0 * width_ratio) / 2.0))) {
+                    x = @as(f32, @floatFromInt(random_x)) + @as(f32, @floatFromInt(100)) * width_ratio;
                 } else {
                     x = @floatFromInt(random_x);
                 }
-                if (random_y > @as(u16, @intFromFloat((util.getRenderHeight() - 100.0) / 2.0))) {
-                    y = @floatFromInt(random_y + 100);
+                if (random_y > @as(u16, @intFromFloat((util.getRenderHeight() - 100.0 * height_ratio) / 2.0))) {
+                    y = @as(f32, @floatFromInt(random_y)) + @as(f32, @floatFromInt(100)) * height_ratio;
                 } else {
                     y = @floatFromInt(random_y);
                 }
