@@ -61,9 +61,9 @@ pub fn fieldGenerate(allocator: std.mem.Allocator, id: u8) Mines {
             }) catch {};
         },
         else => {
-            const chase_amount: u2 = std.Random.intRangeAtMost(random, u2, 1, 3);
+            const chase_amount: u3 = std.Random.intRangeAtMost(random, u3, 1, 2);
 
-            var i: u2 = 0;
+            var i: u3 = 0;
             while (i < chase_amount) : (i += 1) {
                 const random_x: u16 = std.Random.intRangeAtMost(random, u16, 0, @intFromFloat(util.getRenderWidth() - 100.0));
                 const random_y: u16 = std.Random.intRangeAtMost(random, u16, 0, @intFromFloat(util.getRenderHeight() - 100.0));
@@ -89,7 +89,7 @@ pub fn fieldGenerate(allocator: std.mem.Allocator, id: u8) Mines {
                 }) catch {};
             }
 
-            const still_amount: u2 = std.Random.intRangeAtMost(random, u2, 1, 3);
+            const still_amount: u3 = std.Random.intRangeAtMost(random, u3, 1, 4);
 
             i = 0;
             while (i < still_amount) : (i += 1) {
