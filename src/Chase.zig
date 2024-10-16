@@ -58,17 +58,48 @@ pub fn draw(self: *@This()) void {
     const small_arc_segments: u6 = @ceil(small_arc / 10.0);
     const large_arc_segments: u6 = @ceil(large_arc / 10.0);
 
-    rl.drawRing(center_point, radius - thickness, radius, degrees - small_arc * 1.5, degrees - small_arc * 2.5, small_arc_segments, rl.Color.white);
-    rl.drawRing(center_point, radius - thickness, radius, degrees - small_arc * 0.5, degrees + small_arc * 0.5, small_arc_segments, rl.Color.white);
-    rl.drawRing(center_point, radius - thickness, radius, degrees + small_arc * 1.5, degrees + small_arc * 2.5, small_arc_segments, rl.Color.white);
-    rl.drawRing(center_point, radius - thickness, radius, degrees + small_arc * 3.5, degrees + 360 - small_arc * 3.5, large_arc_segments, rl.Color.white);
+    const first_line_first_angle = degrees - small_arc * 2.5;
+    const first_line_second_angle = degrees - small_arc * 1.5;
+    const second_line_first_angle = degrees - small_arc * 0.5;
+    const second_line_second_angle = degrees + small_arc * 0.5;
+    const third_line_first_angle = degrees + small_arc * 1.5;
+    const third_line_second_angle = degrees + small_arc * 2.5;
+    const fourth_line_first_angle = degrees + small_arc * 3.5;
+    const fourth_line_second_angle = degrees + 360 - small_arc * 3.5;
 
-    rl.drawLineEx(rl.Vector2.init(self.x + radius * @cos(util.degreesToRadians(degrees - small_arc * 1.5)), self.y + radius * @sin(util.degreesToRadians(degrees - small_arc * 1.5))), center_point, thickness, rl.Color.white);
-    rl.drawLineEx(rl.Vector2.init(self.x + radius * @cos(util.degreesToRadians(degrees - small_arc * 2.5)), self.y + radius * @sin(util.degreesToRadians(degrees - small_arc * 2.5))), center_point, thickness, rl.Color.white);
-    rl.drawLineEx(rl.Vector2.init(self.x + radius * @cos(util.degreesToRadians(degrees - small_arc * 0.5)), self.y + radius * @sin(util.degreesToRadians(degrees - small_arc * 0.5))), center_point, thickness, rl.Color.white);
-    rl.drawLineEx(rl.Vector2.init(self.x + radius * @cos(util.degreesToRadians(degrees + small_arc * 0.5)), self.y + radius * @sin(util.degreesToRadians(degrees + small_arc * 0.5))), center_point, thickness, rl.Color.white);
-    rl.drawLineEx(rl.Vector2.init(self.x + radius * @cos(util.degreesToRadians(degrees + small_arc * 1.5)), self.y + radius * @sin(util.degreesToRadians(degrees + small_arc * 1.5))), center_point, thickness, rl.Color.white);
-    rl.drawLineEx(rl.Vector2.init(self.x + radius * @cos(util.degreesToRadians(degrees + small_arc * 2.5)), self.y + radius * @sin(util.degreesToRadians(degrees + small_arc * 2.5))), center_point, thickness, rl.Color.white);
-    rl.drawLineEx(rl.Vector2.init(self.x + radius * @cos(util.degreesToRadians(degrees + small_arc * 3.5)), self.y + radius * @sin(util.degreesToRadians(degrees + small_arc * 3.5))), center_point, thickness, rl.Color.white);
-    rl.drawLineEx(rl.Vector2.init(self.x + radius * @cos(util.degreesToRadians(degrees + 360 - small_arc * 3.5)), self.y + radius * @sin(util.degreesToRadians(degrees + 360 - small_arc * 3.5))), center_point, thickness, rl.Color.white);
+    const inner_radius = radius - thickness / 2.0;
+    const outer_radius = radius + thickness / 2.0;
+
+    rl.drawRing(center_point, inner_radius, outer_radius, first_line_first_angle, first_line_second_angle, small_arc_segments, rl.Color.white);
+    rl.drawRing(center_point, inner_radius, outer_radius, second_line_first_angle, second_line_second_angle, small_arc_segments, rl.Color.white);
+    rl.drawRing(center_point, inner_radius, outer_radius, third_line_first_angle, third_line_second_angle, small_arc_segments, rl.Color.white);
+    rl.drawRing(center_point, inner_radius, outer_radius, fourth_line_first_angle, fourth_line_second_angle, large_arc_segments, rl.Color.white);
+
+    const first_point = rl.Vector2.init(self.x + radius * @cos(util.degreesToRadians(first_line_first_angle)), self.y + radius * @sin(util.degreesToRadians(first_line_first_angle)));
+    const second_point = rl.Vector2.init(self.x + radius * @cos(util.degreesToRadians(first_line_second_angle)), self.y + radius * @sin(util.degreesToRadians(first_line_second_angle)));
+    const third_point = rl.Vector2.init(self.x + radius * @cos(util.degreesToRadians(second_line_first_angle)), self.y + radius * @sin(util.degreesToRadians(second_line_first_angle)));
+    const fourth_point = rl.Vector2.init(self.x + radius * @cos(util.degreesToRadians(second_line_second_angle)), self.y + radius * @sin(util.degreesToRadians(second_line_second_angle)));
+    const fifth_point = rl.Vector2.init(self.x + radius * @cos(util.degreesToRadians(third_line_first_angle)), self.y + radius * @sin(util.degreesToRadians(third_line_first_angle)));
+    const sixth_point = rl.Vector2.init(self.x + radius * @cos(util.degreesToRadians(third_line_second_angle)), self.y + radius * @sin(util.degreesToRadians(third_line_second_angle)));
+    const seventh_point = rl.Vector2.init(self.x + radius * @cos(util.degreesToRadians(fourth_line_first_angle)), self.y + radius * @sin(util.degreesToRadians(fourth_line_first_angle)));
+    const eighth_point = rl.Vector2.init(self.x + radius * @cos(util.degreesToRadians(fourth_line_second_angle)), self.y + radius * @sin(util.degreesToRadians(fourth_line_second_angle)));
+
+    rl.drawLineEx(first_point, center_point, thickness, rl.Color.white);
+    rl.drawLineEx(second_point, center_point, thickness, rl.Color.white);
+    rl.drawLineEx(third_point, center_point, thickness, rl.Color.white);
+    rl.drawLineEx(fourth_point, center_point, thickness, rl.Color.white);
+    rl.drawLineEx(fifth_point, center_point, thickness, rl.Color.white);
+    rl.drawLineEx(sixth_point, center_point, thickness, rl.Color.white);
+    rl.drawLineEx(seventh_point, center_point, thickness, rl.Color.white);
+    rl.drawLineEx(eighth_point, center_point, thickness, rl.Color.white);
+
+    rl.drawCircleV(center_point, thickness / 2.0, rl.Color.white);
+    rl.drawCircleV(first_point, thickness / 2.0, rl.Color.white);
+    rl.drawCircleV(second_point, thickness / 2.0, rl.Color.white);
+    rl.drawCircleV(third_point, thickness / 2.0, rl.Color.white);
+    rl.drawCircleV(fourth_point, thickness / 2.0, rl.Color.white);
+    rl.drawCircleV(fifth_point, thickness / 2.0, rl.Color.white);
+    rl.drawCircleV(sixth_point, thickness / 2.0, rl.Color.white);
+    rl.drawCircleV(seventh_point, thickness / 2.0, rl.Color.white);
+    rl.drawCircleV(eighth_point, thickness / 2.0, rl.Color.white);
 }

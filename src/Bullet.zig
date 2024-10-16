@@ -48,10 +48,16 @@ pub fn draw(self: *@This()) void {
         rl.drawLineEx(right_point, left_point, thickness, rl.Color.white);
         rl.drawLineEx(top_point, bottom_point, thickness, rl.Color.white);
     } else {
-        const center_point = rl.Vector2.init(self.x, self.y);
-
-        rl.drawPolyLinesEx(center_point, 4, radius, radians * 360.0 / std.math.tau, thickness, rl.Color.white);
+        rl.drawLineEx(right_point, top_point, thickness, rl.Color.white);
+        rl.drawLineEx(top_point, left_point, thickness, rl.Color.white);
+        rl.drawLineEx(left_point, bottom_point, thickness, rl.Color.white);
+        rl.drawLineEx(bottom_point, right_point, thickness, rl.Color.white);
     }
+
+    rl.drawCircleV(right_point, thickness / 2.0, rl.Color.white);
+    rl.drawCircleV(top_point, thickness / 2.0, rl.Color.white);
+    rl.drawCircleV(left_point, thickness / 2.0, rl.Color.white);
+    rl.drawCircleV(bottom_point, thickness / 2.0, rl.Color.white);
 
     //rl.drawCircleLinesV(rl.Vector2.init(self.x, self.y), collide_radius, rl.Color.red);
 

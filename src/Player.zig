@@ -65,5 +65,10 @@ pub fn draw(self: *@This()) void {
     rl.drawLineEx(left_point, bottom_left_point, thickness, rl.Color.white);
     rl.drawLineEx(bottom_left_point, right_point, thickness, rl.Color.white);
 
+    rl.drawCircleV(right_point, thickness / 2.0, rl.Color.white);
+    rl.drawCircleV(top_left_point, thickness / 2.0, rl.Color.white);
+    rl.drawCircleV(left_point, thickness / 2.0, rl.Color.white);
+    rl.drawCircleV(bottom_left_point, thickness / 2.0, rl.Color.white);
+
     //rl.drawCircleLinesV(rl.Vector2.init(self.x, self.y), collide_radius, rl.Color.red);
 }

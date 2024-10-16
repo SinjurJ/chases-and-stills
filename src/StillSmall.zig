@@ -49,4 +49,8 @@ pub fn draw(self: @This()) void {
     rl.drawLineEx(top_right_point, left_point, thickness, rl.Color.white);
     rl.drawLineEx(left_point, bottom_right_point, thickness, rl.Color.white);
     rl.drawLineEx(bottom_right_point, top_right_point, thickness, rl.Color.white);
+
+    rl.drawCircleV(top_right_point, thickness / 2.0, rl.Color.white);
+    rl.drawCircleV(left_point, thickness / 2.0, rl.Color.white);
+    rl.drawCircleV(bottom_right_point, thickness / 2.0, rl.Color.white);
 }

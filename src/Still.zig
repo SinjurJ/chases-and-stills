@@ -128,6 +128,13 @@ pub fn draw(self: *@This(), still_smalls: *[3]?StillSmall) void {
     rl.drawLineEx(left_inner_point, bottom_right_inner_point, thickness, rl.Color.white);
     rl.drawLineEx(bottom_right_inner_point, top_right_inner_point, thickness, rl.Color.white);
 
+    rl.drawCircleV(top_right_bottom_point, thickness / 2.0, rl.Color.white);
+    rl.drawCircleV(top_right_top_point, thickness / 2.0, rl.Color.white);
+    rl.drawCircleV(left_top_point, thickness / 2.0, rl.Color.white);
+    rl.drawCircleV(left_bottom_point, thickness / 2.0, rl.Color.white);
+    rl.drawCircleV(bottom_right_bottom_point, thickness / 2.0, rl.Color.white);
+    rl.drawCircleV(bottom_right_top_point, thickness / 2.0, rl.Color.white);
+
     for (still_smalls, 0..) |*still_small_optional, i| {
         if (still_small_optional.*) |*still_small| {
             switch (i) {
