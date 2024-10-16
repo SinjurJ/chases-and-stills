@@ -33,6 +33,7 @@ pub fn move(self: *@This(), x: f32, y: f32) void {
         if (@mod(self.spin_angle - player_angle, 400) < 2.0 * self.spin_speed / (1.0 / 60.0 / rl.getFrameTime())) {
             self.spin = false;
             self.spin_time = 0.0;
+            self.angle = player_angle;
         } else return;
     }
 
