@@ -64,6 +64,7 @@ pub fn fieldGenerate(allocator: std.mem.Allocator, id: u8) Mines {
         },
         else => {
             const chase_amount: u3 = std.Random.intRangeAtMost(random, u3, 1, 2);
+            const still_amount: u3 = std.Random.intRangeAtMost(random, u3, 1, 4);
 
             var i: u3 = 0;
             while (i < chase_amount) : (i += 1) {
@@ -90,8 +91,6 @@ pub fn fieldGenerate(allocator: std.mem.Allocator, id: u8) Mines {
                     .speed = size_ratio * 1.0,
                 }) catch {};
             }
-
-            const still_amount: u3 = std.Random.intRangeAtMost(random, u3, 1, 4);
 
             i = 0;
             while (i < still_amount) : (i += 1) {
